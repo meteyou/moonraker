@@ -734,7 +734,11 @@ class GitRepo:
                 f"{self.git_remote}/{self.git_branch}")
         if self.untracked_files:
             self.repo_anomalies.append(
-                f"Repo has untracked source files: {self.untracked_files}"
+                f"This Repository has untracked source files. These files cannot "
+                f"be updated with this component. These files could be unofficial "
+                f"plugins or addons. Plugins usually have their own entry in the "
+                f"update manager. Please be aware that these plugins may cause "
+                f"problems with updates. Untracked source files: {self.untracked_files}"
             )
         if self.diverged:
             self.repo_anomalies.append("Repo has diverged from remote")
