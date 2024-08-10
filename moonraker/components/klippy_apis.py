@@ -71,6 +71,10 @@ class KlippyAPI(APITransport):
         self.server.register_endpoint(
             "/printer/firmware_restart", RequestType.POST, self._gcode_firmware_restart
         )
+        self.server.register_endpoint(
+            "/printer/heaters/set_target_temperature", RequestType.POST,
+            self._heaters_set_target_temperature
+        )
         self.server.register_event_handler(
             "server:klippy_disconnect", self._on_klippy_disconnect
         )
@@ -98,6 +102,11 @@ class KlippyAPI(APITransport):
 
     async def _gcode_firmware_restart(self, web_request: WebRequest) -> str:
         return await self.do_restart("FIRMWARE_RESTART")
+
+    async def _heaters_set_target_temperature(self, web_request: WebRequest) -> str:
+        params = web_request.get_params()
+        return await self._send_klippy_request("heaters/set_target_temperature",
+                                               params)
 
     async def _send_klippy_request(
         self,
