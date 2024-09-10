@@ -369,7 +369,7 @@ class PrusaSlicer(BaseSlicer):
 
     def parse_filament_weight_total(self) -> Optional[float]:
         return regex_find_float(
-            r"total\sfilament\sused\s\[g\]\s=\s(%F)",
+            r"(total\s)?filament\sused\s\[g\]\s=\s(%F)",
             self.footer_data
         )
 
